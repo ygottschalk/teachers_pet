@@ -36,8 +36,11 @@ module TeachersPet
           repo_name = "#{student}-#{@repository}"
 
           unless self.client.repository?(@organization, repo_name)
-            puts " ** ERROR ** - Can't find expected repository '#{repo_name}'"
-            next
+            repo_name = "#{@repository}-#{student}"
+            unless self.client.repository?(@organization, repo_name)
+                    puts " ** ERROR ** - Can't find expected repository '#{student}-#{@repository}' nor '#{repo_name}'"
+              next
+            end
           end
 
           web = self.options[:web]
